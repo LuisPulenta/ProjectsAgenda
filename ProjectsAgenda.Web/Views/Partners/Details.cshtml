@@ -1,0 +1,111 @@
+﻿@model ProjectsAgenda.Web.Data.Entities.Partner
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Proyectos</h2>
+
+<div>
+    
+    <hr />
+    <dl class="dl-horizontal">
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.User.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.LastName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.LastName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.Email)
+        </dd>
+        
+        <dt>
+            Teléfono
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.PhoneNumber)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class=" btn btn-warning">Editar</a>
+    <a asp-action="AddProject" asp-route-id="@Model.Id" class=" btn btn-primary">Agregar Proyecto</a>
+    <a asp-action="Index" class=" btn btn-success">Regresar</a>
+</div>
+
+@if (Model.Projects.Count == 0)
+{
+    <h5>No hay Proyectos todavía</h5>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Projects.FirstOrDefault().Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Projects.FirstOrDefault().CreationDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Projects.FirstOrDefault().EndDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Projects.FirstOrDefault().Active)
+                </th>
+                <th>
+                    Socios
+                </th>
+                <th>
+                    Comentarios
+                </th>
+                
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Projects)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreationDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Active)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserProjects.Count)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProjectRemarks.Count)
+                    </td>
+                    
+
+                    <td>
+                        <a asp-action="EditProject" asp-route-id="@item.Id" class="btn btn-warning">Editar</a>
+                        <a asp-action="DetailsProject" asp-route-id="@item.Id" class="btn btn-info">Detalle</a>
+                        <a asp-action="DeleteProject" asp-route-id="@item.Id" class="btn btn-danger">Borrar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

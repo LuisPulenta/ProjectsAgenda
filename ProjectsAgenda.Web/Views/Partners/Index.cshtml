@@ -1,0 +1,63 @@
+﻿@model IEnumerable<ProjectsAgenda.Web.Data.Entities.Partner>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Socios</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Crear Nuevo Socio</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.User.FullName)
+            </th>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.User.Email)
+            </th>
+            <th>
+                Teléfono
+            </th>
+            <th>
+                Proyectos
+            </th>
+            
+            <th></th>
+        </tr>
+
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.FullName)
+                </td>
+                
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.Email)
+                </td>
+                
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Projects.Count)
+                </td>
+                
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Editar</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Detalle</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Borrar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

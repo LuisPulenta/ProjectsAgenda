@@ -1,0 +1,55 @@
+﻿@model IEnumerable<ProjectsAgenda.Web.Data.Entities.UserProject>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Proyectos de este Socio</h2>
+
+<p>
+  
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Project.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Project.CreationDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Project.EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Project.Active)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Project.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Project.CreationDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Project.EndDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Active)
+                </td>
+                <td>
+
+                    
+                    <a asp-action="Details" asp-route-id="@item.Project.Id" class="btn btn-info">Detalles</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

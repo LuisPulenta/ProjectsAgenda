@@ -1,0 +1,138 @@
+﻿@model ProjectsAgenda.Web.Data.Entities.Project
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Detalles del Proyecto</h2>
+
+<div>
+    
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreationDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Active)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Active)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="AddRemark" asp-route-id="@Model.Id" class="btn btn-primary">Agregar Comentario</a>
+    <a asp-action="Index" class=" btn btn-success">Regresar</a>
+</div>
+
+
+
+<div class="row">
+    <div class="col-md-3">
+        <div>
+
+            @if (Model.UserProjects.Count == 0)
+            {
+                <h5>No hay Socios todavía.</h5>
+            }
+            else
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Socio
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.UserProjects)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Partner.User.FullName)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div>
+
+            @if (Model.ProjectRemarks.Count == 0)
+            {
+                <h5>No hay comentarios todavía.</h5>
+            }
+            else
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.ProjectRemarks.FirstOrDefault().Date)
+                            </th>
+                            <th>
+                                Socio
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ProjectRemarks.FirstOrDefault().Remark)
+                            </th>
+                            <th>
+                                Imagen
+                            </th>
+
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.ProjectRemarks.OrderBy(p => p.Date))
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Date)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Partner.User.FullName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Remark)
+                                </td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(item.ImageUrl))
+                                    {
+                                        <img src="@Url.Content(item.ImageUrl)" alt="Image" style="width:400px;height:400px;max-width: 100%; height: auto;" />
+                                    }
+                                </td>
+
+                                <td>
+                                    <a asp-action="DeleteRemark" asp-route-id="@item.Id" class="btn btn-danger">Borrar</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</div>
