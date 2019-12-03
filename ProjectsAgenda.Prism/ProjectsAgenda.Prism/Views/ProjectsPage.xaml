@@ -4,4 +4,73 @@
              xmlns:prism="http://prismlibrary.com"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="ProjectsAgenda.Prism.Views.ProjectsPage"
-             Title="{Binding Title}"></ContentPage>
+             BackgroundColor="CadetBlue"
+             Title="{Binding Title}">
+
+  
+
+  <StackLayout Padding="10">
+    <ListView HasUnevenRows="True"
+              SeparatorVisibility="None"
+              IsRefreshing="{Binding IsRefreshing}"
+              ItemsSource="{Binding Projects}">
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+            <Frame CornerRadius="20"
+                   HasShadow="True"
+                   Margin="0,0,0,5">
+              <Frame.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding SelectProjectCommand}" />
+              </Frame.GestureRecognizers>
+              <Grid>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto" />
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                
+               
+                            
+                  <Label Grid.Column="0"
+                         Grid.Row="0"
+                         FontAttributes="Bold"
+                         FontSize="Medium"
+                         Text="Proyecto: "
+                         TextColor="Black"></Label>
+                  <Label Grid.Column="1"
+                         Grid.Row="0"
+                         FontAttributes="Bold"
+                         FontSize="Medium"
+                         Text="{Binding Name}"
+                         TextColor="Blue"></Label>
+                <Label Grid.Column="0"
+                       Grid.Row="1"
+                       Text="Fec.Creación: "
+                       TextColor="Black"></Label>
+                <Label Grid.Column="1"
+                         Grid.Row="1"
+                         Text="{Binding CreationDate, StringFormat='{0:yyyy/MM/dd}'}"
+                         TextColor="Black"></Label>
+                <Label Grid.Column="0"
+                       Grid.Row="2"
+                       Text="Fec.Fin: "
+                       TextColor="Navy"></Label>
+                <Label Grid.Column="1"
+                       Grid.Row="2"
+                       Text="{Binding EndDate, StringFormat='{0:yyyy/MM/dd}'}" 
+                         TextColor="Navy"></Label>
+                <Image Grid.Column="2"
+                       Grid.Row="0"
+                       Grid.RowSpan="3"
+                       VerticalOptions="Center"
+                       Source="ic_chevron_right"
+                       WidthRequest="40"></Image>
+              </Grid>
+            </Frame>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+  </StackLayout>
+</ContentPage>

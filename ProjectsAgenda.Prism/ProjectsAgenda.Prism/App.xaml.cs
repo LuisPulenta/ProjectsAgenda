@@ -33,6 +33,7 @@ namespace ProjectsAgenda.Prism
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
             containerRegistry.RegisterForNavigation<ProjectsPage, ProjectsPageViewModel>();
+            containerRegistry.RegisterForNavigation<ProjectPage, ProjectPageViewModel>();
         }
     }
 }

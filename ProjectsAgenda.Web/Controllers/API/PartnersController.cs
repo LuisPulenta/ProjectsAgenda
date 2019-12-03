@@ -70,6 +70,18 @@ namespace ProjectsAgenda.Web.Controllers.API
                .ThenInclude(r3 => r3.User)
                 .FirstOrDefaultAsync(o => o.User.UserName.ToLower().Equals(emailRequest.Email.ToLower()));
 
+            var userprojects = await _dataContext.UserProjects
+               .Include(o => o.Partner)
+               .ThenInclude(o => o.User)
+               .Include(o => o.Project)
+               .ThenInclude(o => o.Partner)
+               .ThenInclude(o => o.User)
+               .Include(o => o.Project)
+               .ThenInclude(o => o.ProjectRemarks)
+               .ThenInclude(o => o.Partner)
+               .ThenInclude(o => o.User)
+               .Where(o => o.Partner.User.UserName.ToLower().Equals(emailRequest.Email.ToLower())).ToListAsync();
+
             var response = new PartnerResponse
             {
                 Id = partner.Id,
@@ -78,15 +90,15 @@ namespace ProjectsAgenda.Web.Controllers.API
                 PhoneNumber = partner.User.PhoneNumber,
                 Email = partner.User.Email,
 
-                Projects = partner.Projects?.Select(p => new ProjectResponse
+                Projects = userprojects?.Select(p => new ProjectResponse
                 {
-                    Id = p.Id,
-                    Name = p.Name,
-                    CreationDate = p.CreationDate,
-                    EndDate = p.EndDate,
-                    Active = p.Active,
+                    Id = p.Project.Id,
+                    Name = p.Project.Name,
+                    CreationDate = p.Project.CreationDate,
+                    EndDate = p.Project.EndDate,
+                    Active = p.Project.Active,
 
-                    UserProjects = p.UserProjects?.Select(c => new UserProjectResponse
+                    UserProjects = p.Project.UserProjects?.Select(c => new UserProjectResponse
                     {
                         Id = c.Id,
                         Active = c.Active,
@@ -96,7 +108,7 @@ namespace ProjectsAgenda.Web.Controllers.API
                     }).ToList(),
 
 
-                    ProjectRemarks = p.ProjectRemarks?.Select(c => new ProjectRemarkResponse
+                    ProjectRemarks = p.Project.ProjectRemarks?.Select(c => new ProjectRemarkResponse
                     {
                         Id = c.Id,
                         Date = c.Date,

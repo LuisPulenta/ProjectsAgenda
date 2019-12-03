@@ -21,7 +21,7 @@ namespace ProjectsAgenda.Prism.ViewModels
             Title = "Login";
             IsEnabled = true;
 
-            Email = "luis.albiazul@hotmail.com";
+            Email = "messi@yopmail.com";
             Password = "123456";
 
         }
@@ -110,10 +110,10 @@ namespace ProjectsAgenda.Prism.ViewModels
                 return;
             }
 
-            var owner = response2.Result;
+            var partner = response2.Result;
             var parameters = new NavigationParameters
             {
-                {"owner",owner}
+                {"partner",partner}
             };
 
             await _navigationService.NavigateAsync("ProjectsPage", parameters);

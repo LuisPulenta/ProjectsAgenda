@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="ProjectsAgenda.Prism.Views.ProjectPage"
+             BackgroundColor="CadetBlue"
+             Title="{Binding Title}">
+  
+    <StackLayout
+      Padding="5">
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
+      <Label Grid.Column="0"
+             Grid.Row="0"
+             FontAttributes="Bold"
+             FontSize="Medium"
+             Text="Proyecto: "
+             TextColor="Black"></Label>
+      <Label Grid.Column="1"
+             Grid.Row="0"
+             FontAttributes="Bold"
+             FontSize="Medium"
+             Text="{Binding Project.Name}"
+             TextColor="Blue"></Label>
+      <Label Grid.Column="0"
+             Grid.Row="1"
+             Text="Fec.Creación: "
+             TextColor="Black"></Label>
+      <Label Grid.Column="1"
+             Grid.Row="1"
+             Text="{Binding Project.CreationDate, StringFormat='{0:yyyy/MM/dd}'}"
+             TextColor="Black"></Label>
+      <Label Grid.Column="0"
+             Grid.Row="2"
+             Text="Fec.Fin: "
+             TextColor="Navy"></Label>
+      <Label Grid.Column="1"
+             Grid.Row="2"
+             Text="{Binding Project.EndDate, StringFormat='{0:yyyy/MM/dd}'}"
+             TextColor="Navy"></Label>
+     </Grid>
+    <ListView HasUnevenRows="True"
+              SeparatorVisibility="None"
+              IsRefreshing="{Binding IsRefreshing}"
+              ItemsSource="{Binding ProjectRemarks}">
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+            <Frame CornerRadius="20"
+                   HasShadow="True"
+                   Margin="0,0,0,5">
+              <Frame.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding SelectProjectCommand}" />
+              </Frame.GestureRecognizers>
+              <Grid>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto" />
+                  <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="Auto" />
+                  <RowDefinition Height="Auto" />
+                  
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0"
+                       Grid.Row="0"
+                       FontSize="Small"
+                       Text="{Binding Partner.FullName}"
+                       TextColor="Black"></Label>
+                <Label Grid.Column="1"
+                       Grid.Row="0"
+                       FontSize="Small"
+                       Text="{Binding Date, StringFormat='{0:yyyy/MM/dd}'}"
+                       TextColor="Blue"></Label>
+                <Label Grid.Column="0"
+                       Grid.Row="1"
+                       Grid.ColumnSpan="2"
+                       FontSize="Small"
+                       Text="{Binding Remark}"
+                       TextColor="Blue"></Label>
+              </Grid>
+            </Frame>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+  </StackLayout>
+  
+  
+  
+  
+</ContentPage>  
+  
+  
